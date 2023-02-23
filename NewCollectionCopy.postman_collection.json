@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "de944a82-f8cc-4869-952f-8d203aee4f02",
+		"name": "NewCollectionCopy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25938933"
+	},
+	"item": [
+		{
+			"name": "ParameterUrlRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"{\r",
+							"   \r",
+							"  pm.test(\"Status code is 200\", () => {\r",
+							"      var sta=pm.response.code;\r",
+							"      console.log(\"the status code is :\" +sta)\r",
+							"\r",
+							"});\r",
+							"  \r",
+							"\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Qurl01}}/status/:status",
+					"host": [
+						"{{Qurl01}}"
+					],
+					"path": [
+						"status",
+						":status"
+					],
+					"variable": [
+						{
+							"key": "status",
+							"value": "201"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "testcase1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"check for the response code\"]=responseCode.code==200;\r",
+							"tests[\"string match\"]=responseBody.has(\"first_name\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{globalUrl01}}/api/users/2",
+					"host": [
+						"{{globalUrl01}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"{\r",
+							"pm.test(\"Status code is 201\" , function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"var na = pm.variables.get(\"name\");\r",
+							"var ag=pm.variables.get(\"age\");\r",
+							"\r",
+							"pm.test(\"Check name \" +na, function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(na);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"check age \"+ag,function(){\r",
+							"var jsonData=pm.response.json();\r",
+							"pm.expect(jsonData.age).to.eql(JSON.stringify(ag));\r",
+							"});\r",
+							" \r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"name\":\"{{name}}\",\r\n    \"age\":\"{{age}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{GlobalUrl}}/api/users",
+					"host": [
+						"{{GlobalUrl}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MutIUserGetRequest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{GlobalUrl}}/api/users?page=2",
+					"host": [
+						"{{GlobalUrl}}"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
